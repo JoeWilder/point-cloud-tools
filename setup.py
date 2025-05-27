@@ -4,7 +4,7 @@ setup(
     name="point_cloud_tools",
     version="0.1.0",
     packages=find_packages(),
-    install_requires=["numpy", "torch", "tqdm", "trimesh", "requests"],
+    install_requires=["numpy", "torch", "tqdm", "trimesh", "requests", "matplotlib"],
     python_requires=">=3.6",
     author="Joe Wilder",
     description="A Python package for processing point clouds for neural networks",

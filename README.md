@@ -10,3 +10,9 @@ This project acts as a collection of common point cloud functionality used to as
 - Processing
 - Utilities
 - Visualizations
+
+## Install
+
+```bash
+pip install git+https://github.com/JoeWilder/point-cloud-tools.git
+```
