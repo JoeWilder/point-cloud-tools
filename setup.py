@@ -1,8 +1,9 @@
 from setuptools import setup, find_packages
+from point_cloud_tools import __version__
 
 setup(
     name="point_cloud_tools",
-    version="0.1.0",
+    version=__version__,
     packages=find_packages(),
     install_requires=["numpy", "torch", "tqdm", "trimesh", "requests", "matplotlib"],
     python_requires=">=3.6",
