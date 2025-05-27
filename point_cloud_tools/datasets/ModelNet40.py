@@ -6,8 +6,8 @@ from tqdm import tqdm
 import pickle
 import shutil
 
-from src.utilities.file_utils import download, unzip
-from src.utilities.processing import sample_point_cloud_from_off
+from point_cloud_tools.utilities import download, unzip
+from point_cloud_tools.processing import sample_point_cloud_from_off
 
 
 class ModelNet40(Dataset):

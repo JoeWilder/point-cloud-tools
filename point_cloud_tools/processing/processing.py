@@ -1,6 +1,6 @@
 import torch
-import trimesh
 import numpy as np
+import trimesh
 
 
 def unit_sphere_normalize(pcd: torch.Tensor) -> torch.Tensor:
@@ -42,14 +42,14 @@ def sigmoid_normalize(tensor_pcd) -> torch.Tensor:
     return (tensor_pcd - min_vals) / scales
 
 
+def label_smoothing(one_hot_labels: list, epsilon: float = 0.1):
+    """Apply label smoothing to a one hot label vector"""
+    one_hot_labels = np.array(one_hot_labels)
+    return (1 - epsilon) * one_hot_labels + epsilon / len(one_hot_labels)
+
+
 def sample_point_cloud_from_off(path: str, n_points: int = 2048):
     """Convert from off mesh file to N x 3 point cloud tensor"""
     mesh = trimesh.load(path, process=False)
     points, _ = trimesh.sample.sample_surface(mesh, n_points)
     return torch.tensor(points, dtype=torch.float32)
-
-
-def label_smoothing(one_hot_labels: list, epsilon: float = 0.1):
-    """Apply label smoothing to a one hot label vector"""
-    one_hot_labels = np.array(one_hot_labels)
-    return (1 - epsilon) * one_hot_labels + epsilon / len(one_hot_labels)

@@ -5,5 +5,8 @@ This project acts as a collection of common point cloud functionality used to as
 
 ## Functionlity
 
-- Visualization
-- Augmentation
+- Augmentations
+- Datasets
+- Processing
+- Utilities
+- Visualizations
