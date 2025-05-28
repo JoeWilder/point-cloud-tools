@@ -1,6 +1,7 @@
 import torch
 import numpy as np
 import trimesh
+import laspy
 
 
 def unit_sphere_normalize(pcd: torch.Tensor) -> torch.Tensor:
@@ -53,3 +54,25 @@ def sample_point_cloud_from_off(path: str, n_points: int = 2048):
     mesh = trimesh.load(path, process=False)
     points, _ = trimesh.sample.sample_surface(mesh, n_points)
     return torch.tensor(points, dtype=torch.float32)
+
+
+def load_txt(txt_path: str, delimeter=",") -> torch.Tensor:
+    """Load a point cloud text file into a tensor"""
+    return torch.Tensor(np.loadtxt(txt_path, delimiter=delimeter))
+
+
+def load_las(filepath: str, device="cuda") -> torch.Tensor:
+    with laspy.open(filepath) as las_file:
+        las_data: laspy.LasData = las_file.read()
+
+        # Convert LAS data to NumPy arrays directly
+        point_cloud_np = np.vstack((las_data.x, las_data.y, las_data.z)).astype(np.float32).T
+        classifications_np = np.array(las_data.classification, dtype=np.uint8)
+        # intensity_np = np.array(las_data.intensity, dtype=np.uint8)
+
+        # Convert NumPy to PyTorch tensors (use pinned memory if transferring to GPU)
+        point_cloud = torch.from_numpy(point_cloud_np).to(device, non_blocking=True)
+        classifications = torch.from_numpy(classifications_np).to(device, non_blocking=True)
+        # intensity = torch.from_numpy(intensity_np).to(device, non_blocking=True)
+
+        return point_cloud, classifications
